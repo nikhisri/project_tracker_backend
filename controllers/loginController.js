@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const User = require('../modal/userdetails'); // Adjust the path as needed
 
 const register =async (req, res) => {
