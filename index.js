@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const projectRoutes = require("./routes/projectRoutes");
-// const roleRoutes = require("./routes/roleRoutes");
 
 //step 2
 dotenv.config();
@@ -15,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/v1/user",projectRoutes);   
- 
+
 app.get("/alive",(req,res)=>{ 
     res.send({
     greetings:"good evening",Status:"alive !!!!!.....",
