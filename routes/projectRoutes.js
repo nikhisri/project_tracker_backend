@@ -7,7 +7,8 @@ router.post("/register",loginController.register);
 router.post("/login",loginController.login);
 
 router.post("/project",projectController.createProject);
-router.post("/getallprojects",projectController.getAllProjects);
+router.get("/getallprojects",projectController.getAllProjects);
+router.post("/projectbyid",projectController.getProjectsById);
 
 
 module.exports = router;

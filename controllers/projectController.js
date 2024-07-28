@@ -21,8 +21,24 @@ const getAllProjects = async(req,res) => {
             res.status(500).json({ status: 'error', message: error.message });
         }
 }
+
+const getProjectsById = async(req,res) => {
+    proj_id = req.body.id;
+    console.log(proj_id);
+    try {
+        const project = await Project_det.findOne({project_id:proj_id});
+        if (!project) {
+            return res.status(404).send('Project not found');
+        }
+        res.status(200).send(project);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     createProject,
-    getAllProjects
+    getAllProjects,
+    getProjectsById
     
 };
