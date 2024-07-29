@@ -5,7 +5,7 @@ const keyIssueSchema = new mongoose.Schema({
     project_id:{
         type:String,
         required:true,
-        unique:true
+       
     },
     project_name:{
         type:String,
@@ -38,7 +38,7 @@ const keyIssueSchema = new mongoose.Schema({
 
     action_Owner_dept:{
         type:String,
-      
+    },
 
 
     action_Owner_dept:{
@@ -48,7 +48,8 @@ const keyIssueSchema = new mongoose.Schema({
 
     issue_id:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
 
     issue_Status:{
