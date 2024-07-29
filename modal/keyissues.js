@@ -16,11 +16,6 @@ const keyIssueSchema = new mongoose.Schema({
         required:true
     },
 
-    action_owner:{  
-        type:String,
-        required:true
-    },
-
     issueRaiseddate:{
         type:Date,    
         required:true
@@ -36,11 +31,14 @@ const keyIssueSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    action_owner:{  
+        type:String,
+        required:true
+    },
 
     action_Owner_dept:{
         type:String,
-        required:true
-
+      
     },
     issue_id:{
         type:String,
@@ -48,7 +46,7 @@ const keyIssueSchema = new mongoose.Schema({
 
     },
 
-    Status:{
+    issue_Status:{
         type:String,
         required:true
     },
