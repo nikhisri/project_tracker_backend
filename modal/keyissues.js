@@ -31,6 +31,7 @@ const keyIssueSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+<<<<<<< HEAD
     action_owner:{  
         type:String,
         required:true
@@ -39,11 +40,16 @@ const keyIssueSchema = new mongoose.Schema({
     action_Owner_dept:{
         type:String,
       
+=======
+
+    action_Owner_dept:{
+        type:String
+>>>>>>> e495d6bbe533c678fa30d0883d8b2fb236e07cd6
     },
+
     issue_id:{
         type:String,
         required:true
-
     },
 
     issue_Status:{
