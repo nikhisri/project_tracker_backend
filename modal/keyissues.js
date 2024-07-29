@@ -38,17 +38,15 @@ const keyIssueSchema = new mongoose.Schema({
     },
 
     action_Owner_dept:{
-        type:String,
-        required:true
-
+        type:String
     },
+
     issue_id:{
         type:String,
         required:true
-
     },
 
-    Status:{
+    issue_Status:{
         type:String,
         required:true
     },
