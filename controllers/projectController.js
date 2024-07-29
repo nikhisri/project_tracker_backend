@@ -36,9 +36,44 @@ const getProjectsById = async(req,res) => {
     }
 }
 
+const updatebyid = async(req,res) =>{
+    try {
+        proj_id = req.body.id;
+
+        const project = await Project_det.findOneAndUpdate(
+            {project_id:proj_id},
+            req.body,
+            { new: true, runValidators: true }
+        );
+        if (!project) {
+            return res.status(404).send('Project not found');
+        }
+        res.status(200).send(project);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const deleteprojid = async(req,res) =>{
+   
+    // console.log(proj_id);
+    try {
+        const proj_id = req.body.id;
+        const project = await Project_det.findOneAndDelete({ project_id: proj_id });
+        if (!project) {
+            return res.status(404).send('Project not found');
+        }
+        res.status(200).send({ message: 'Project deleted successfully' });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     createProject,
     getAllProjects,
-    getProjectsById
+    getProjectsById,
+    updatebyid,
+    deleteprojid
     
 };
