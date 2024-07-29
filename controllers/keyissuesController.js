@@ -23,9 +23,9 @@ const getAllIssues = async(req,res) => {
 }
 
 const getIssueById = async(req,res) => {
-    issue_id = req.body.id;
-    console.log(issue_id);
     try {
+        const issue_id = req.body.id;
+
         const issue = await keyIssues.findOne({issue_id:issue_id});
         if (!issue) {
             return res.status(404).send('Issue not found');
@@ -38,7 +38,7 @@ const getIssueById = async(req,res) => {
 
 const updateIssueById = async(req,res) =>{
     try {
-        issue_id = req.body.id;
+        const issue_id = req.body.id;
 
         const issue = await keyIssues.findOneAndUpdate(
             {issue_id:issue_id},

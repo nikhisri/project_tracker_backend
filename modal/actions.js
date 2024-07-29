@@ -4,18 +4,37 @@ const mongoose = require("mongoose");
 const reqActionSchema = new mongoose.Schema({
     project_id:{
         type:String,
+        required:true,  
+    },
+
+    action_id:{
+        type:String,
         required:true,
         unique:true
     },
+
+    issue_id:{
+        type:String,
+        required:true, 
+    },
    
-    issue_desc:{
+    action_desc:{
+        type:String,
+        required:true
+    },
+    
+    action_owner:{
         type:String,
         required:true
     },
 
-    
-    Status:{
+    action_status:{
         type:String,
+        required:true
+    },
+
+    target_date:{
+        type:Date,
         required:true
     },
    
