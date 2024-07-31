@@ -21,7 +21,7 @@ router.post("/updateissue",keyissueController.updateIssueById);
 router.post("/deleteissue",keyissueController.deleteIssueid);
 
 router.post("/createAction",actionsController.createAction);
-router.post("/getallaction",actionsController.getAllAction);
+router.get("/getallaction",actionsController.getAllAction);
 router.post("/getactionbyid",actionsController.getActionById);
 router.post("/updateactionbyid",actionsController.updateActionById);
 router.post("/deleteactionbyid",actionsController.deleteActionid);
