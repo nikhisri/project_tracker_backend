@@ -21,6 +21,21 @@ const getAllAction = async(req,res) => {
         }
 }
 
+const countAction = async (req, res) => {
+    try {
+      const count = await action.countDocuments({});
+      res.status(200).json({
+        status: 'success',
+        count: count
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: 'error',
+        message: 'Error counting documents: ' + err.message
+      });
+    }
+  };
+
 const getActionById = async(req,res) => {
     // console.log(action_id);
     try {
@@ -72,5 +87,6 @@ module.exports ={
     getAllAction,
     getActionById,
     updateActionById,
-    deleteActionid
+    deleteActionid,
+    countAction
 }

@@ -21,6 +21,20 @@ const getAllIssues = async(req,res) => {
             res.status(500).json({ status: 'error', message: error.message });
         }
 }
+const countKeyIssues = async (req, res) => {
+    try {
+      const count = await keyIssues.countDocuments({});
+      res.status(200).json({
+        status: 'success',
+        count: count
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: 'error',
+        message: 'Error counting documents: ' + err.message
+      });
+    }
+  };
 
 const getIssueById = async(req,res) => {
     try {
@@ -74,5 +88,6 @@ module.exports = {
     getAllIssues,
     getIssueById,
     updateIssueById,
-    deleteIssueid
+    deleteIssueid,
+    countKeyIssues
 }

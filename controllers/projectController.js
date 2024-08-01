@@ -1,5 +1,7 @@
 const Project_det = require("../modal/projectDetails");
 const mongoose = require('mongoose');
+const Action = require("../modal/actions");
+const KeyIssues = require("../modal/keyissues");
 
 const createProject = async (req, res) => {
         try {  
@@ -21,6 +23,26 @@ const getAllProjects = async(req,res) => {
             res.status(500).json({ status: 'error', message: error.message });
         }
 }
+const countProjects = async (req, res) => {
+    try {
+      const procount = await Project_det.countDocuments({});
+      const issuecount = await KeyIssues.countDocuments({});
+      const actioncount = await Action.countDocuments({});
+
+      
+      res.status(200).json({
+        status: 'success',
+        procount: procount,
+        issuecount:issuecount,
+        actioncount:actioncount
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: 'error',
+        message: 'Error counting documents: ' + err.message
+      });
+    }
+  };
 
 const getProjectsById = async(req,res) => {
     proj_id = req.body.id;
@@ -56,9 +78,10 @@ const updatebyid = async(req,res) =>{
 
 const deleteprojid = async(req,res) =>{
    
-    // console.log(proj_id);
+    // 
     try {
         const proj_id = req.body.id;
+        console.log(proj_id);
         const project = await Project_det.findOneAndDelete({ project_id: proj_id });
         if (!project) {
             return res.status(404).send('Project not found');
@@ -74,6 +97,7 @@ module.exports = {
     getAllProjects,
     getProjectsById,
     updatebyid,
-    deleteprojid
+    deleteprojid,
+    countProjects
     
 };
