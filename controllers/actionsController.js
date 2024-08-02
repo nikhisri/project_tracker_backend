@@ -39,7 +39,7 @@ const countAction = async (req, res) => {
 const getActionById = async(req,res) => {
     // console.log(action_id);
     try {
-        const action_id = req.body.id;
+        const action_id = req.params.id;
         const act_issue = await action.findOne({action_id:action_id});
         if (!act_issue) {
             return res.status(404).send('Issue not found');
@@ -52,7 +52,7 @@ const getActionById = async(req,res) => {
 
 const updateActionById = async(req,res) =>{
     try {
-        const action_id = req.body.id;
+        const action_id = req.body.action_id;
 
         const act_issue = await action.findOneAndUpdate(
             {action_id:action_id},

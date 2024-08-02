@@ -38,7 +38,7 @@ const countKeyIssues = async (req, res) => {
 
 const getIssueById = async(req,res) => {
     try {
-        const issue_id = req.body.id;
+        const issue_id = req.params.id;
 
         const issue = await keyIssues.findOne({issue_id:issue_id});
         if (!issue) {
@@ -52,7 +52,7 @@ const getIssueById = async(req,res) => {
 
 const updateIssueById = async(req,res) =>{
     try {
-        const issue_id = req.body.id;
+        const issue_id = req.body.issue_id;
 
         const issue = await keyIssues.findOneAndUpdate(
             {issue_id:issue_id},

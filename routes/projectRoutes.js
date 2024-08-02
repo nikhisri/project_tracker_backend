@@ -10,21 +10,21 @@ router.post("/login",loginController.login);
 
 router.post("/project",projectController.createProject);
 router.get("/getallprojects",projectController.getAllProjects);
-router.post("/projectbyid",projectController.getProjectsById);
-router.put("/updateproj",projectController.updatebyid);
+router.get("/projectbyid/:id",projectController.getProjectsById);
+router.post("/updateproj",projectController.updatebyid);
 router.post("/deleteproj",projectController.deleteprojid);
 router.get("/countproj",projectController.countProjects);
 
 router.post("/createissue",keyissueController.createIssue);
 router.get("/getallissue",keyissueController.getAllIssues);
-router.post("/getissuebyid",keyissueController.getIssueById);
+router.get("/getissuebyid/:id",keyissueController.getIssueById);
 router.post("/updateissue",keyissueController.updateIssueById);
 router.post("/deleteissue",keyissueController.deleteIssueid);
 router.get("/countkeyissue",keyissueController.countKeyIssues);
 
 router.post("/createAction",actionsController.createAction);
 router.get("/getallaction",actionsController.getAllAction);
-router.post("/getactionbyid",actionsController.getActionById);
+router.get("/getactionbyid/:id",actionsController.getActionById);
 router.post("/updateactionbyid",actionsController.updateActionById);
 router.post("/deleteactionbyid",actionsController.deleteActionid);
 router.get("/countaction",actionsController.countAction);

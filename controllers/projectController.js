@@ -45,10 +45,10 @@ const countProjects = async (req, res) => {
   };
 
 const getProjectsById = async(req,res) => {
-    proj_id = req.body.id;
+    proj_id = req.params.id;
     console.log(proj_id);
     try {
-        const project = await Project_det.findOne({project_id:proj_id});
+        const project = await Project_det.findOne({ project_id:proj_id});
         if (!project) {
             return res.status(404).send('Project not found');
         }
@@ -60,7 +60,7 @@ const getProjectsById = async(req,res) => {
 
 const updatebyid = async(req,res) =>{
     try {
-        proj_id = req.body.id;
+        proj_id = req.body.project_id;
 
         const project = await Project_det.findOneAndUpdate(
             {project_id:proj_id},

@@ -41,10 +41,7 @@ const projectSchema = new mongoose.Schema({
         type:Date,
         required:true
     },
-    revised_Completion_date_2:{
-        type:Date,
-        required:true
-    },
+   
     required_No_days:{
         type:Number,
         required:true
