@@ -31,6 +31,8 @@ router.get("/getactionbyid/:id",actionsController.getActionById);
 router.post("/updateactionbyid",actionsController.updateActionById);
 router.post("/deleteactionbyid",actionsController.deleteActionid);
 router.get("/countaction",actionsController.countAction);
+router.get("/actionstatus",actionsController.getActionStats);
+
 
 
 

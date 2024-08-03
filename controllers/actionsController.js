@@ -82,11 +82,50 @@ const deleteActionid = async(req,res) =>{
         res.status(500).send(error.message);
     }
 }
+
+const getActionStats = async (req, res) => {
+    try {
+      // Total count of actions
+      const totalActions = await action.countDocuments({});
+  
+      // Count of actions grouped by status
+      const statusCounts = await action.aggregate([
+        {
+          $group: {
+            _id: "$action_status",
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $sort: { _id: 1 } // Sort by status if needed
+        }
+      ]);
+  
+      // Format the results
+      const formattedStatusCounts = statusCounts.map(stat => ({
+        status: stat._id,
+        count: stat.count
+      }));
+  
+      res.status(200).json({
+        status: 'success',
+        totalActions: totalActions,
+        actionCountsByStatus: formattedStatusCounts
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+        message: error.message
+      });
+    }
+  };
+  
 module.exports ={
     createAction,
     getAllAction,
     getActionById,
     updateActionById,
     deleteActionid,
-    countAction
+    countAction,
+    getActionStats
 }
