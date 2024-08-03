@@ -53,6 +53,11 @@ const keyIssueSchema = new mongoose.Schema({
     remarks:{
         type:String
     }
-});
+}
+,
+{
+timestamps: true // Enable timestamps
+}
+);
 const keyissue = mongoose.model('Key', keyIssueSchema);
 module.exports = keyissue;

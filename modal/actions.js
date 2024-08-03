@@ -42,7 +42,12 @@ const reqActionSchema = new mongoose.Schema({
         type:String
     }
 
-});
+}
+,
+{
+timestamps: true // Enable timestamps
+}
+);
 const reqActions = mongoose.model('Requierd_Actions', reqActionSchema);
 
 module.exports = reqActions;

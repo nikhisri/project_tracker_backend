@@ -66,9 +66,15 @@ const projectSchema = new mongoose.Schema({
     },
     remarks:{
         type:String
-    }
+    },
+    
+        
 
-});
+},
+{
+timestamps: true // Enable timestamps
+}
+);
 const project = mongoose.model('Projects', projectSchema);
 
 module.exports = project;

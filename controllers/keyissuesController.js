@@ -83,11 +83,46 @@ const deleteIssueid = async(req,res) =>{
     }
 }
 
+const getIssuesCountPerMonth = async (req, res) => {
+    try {
+      const issuesCount = await keyIssues.aggregate([
+        {
+          $group: {
+            _id: {
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" }
+            },
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $sort: {
+            "_id.year": 1,
+            "_id.month": 1
+          }
+        }
+      ]);
+  
+      res.status(200).json({
+        status: "success",
+        data: issuesCount
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: "error",
+        message: "Error getting issues count per month: " + error.message
+      });
+    }
+  };
+  
+
+
 module.exports = {
     createIssue,
     getAllIssues,
     getIssueById,
     updateIssueById,
     deleteIssueid,
-    countKeyIssues
+    countKeyIssues,
+    getIssuesCountPerMonth
 }
