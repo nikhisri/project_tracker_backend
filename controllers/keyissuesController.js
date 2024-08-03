@@ -83,38 +83,41 @@ const deleteIssueid = async(req,res) =>{
     }
 }
 
-const getIssuesCountPerMonth = async (req, res) => {
-    try {
-      const issuesCount = await keyIssues.aggregate([
-        {
-          $group: {
-            _id: {
-              year: { $year: "$createdAt" },
-              month: { $month: "$createdAt" }
-            },
-            count: { $sum: 1 }
-          }
+// API to get issue count by month for a given year
+const getcountmonth= async (req, res) => {
+  try {
+    const year = parseInt(req.params.year, 10);
+
+    // Aggregate issues to count month-wise
+    const issuesByMonth = await keyIssues.aggregate([
+      {
+        $match: {
+          issueRaiseddate: {
+            $gte: new Date(`${year}-01-01`),
+            $lt: new Date(`${year + 1}-01-01`),
+          },
         },
-        {
-          $sort: {
-            "_id.year": 1,
-            "_id.month": 1
-          }
-        }
-      ]);
-  
-      res.status(200).json({
-        status: "success",
-        data: issuesCount
-      });
-    } catch (error) {
-      res.status(500).json({
-        status: "error",
-        message: "Error getting issues count per month: " + error.message
-      });
-    }
-  };
-  
+      },
+      {
+        $group: {
+          _id: { $month: '$issueRaiseddate' },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    // Prepare the result array
+    const monthCounts = Array(12).fill(0);
+    issuesByMonth.forEach((entry) => {
+      monthCounts[entry._id - 1] = entry.count;
+    });
+
+    res.json(monthCounts);
+  } catch (error) {
+    console.error('Error fetching issues:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
 
 
 module.exports = {
@@ -124,5 +127,5 @@ module.exports = {
     updateIssueById,
     deleteIssueid,
     countKeyIssues,
-    getIssuesCountPerMonth
+    getcountmonth
 }

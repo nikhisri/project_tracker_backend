@@ -83,13 +83,13 @@ const deleteActionid = async(req,res) =>{
     }
 }
 
-const getActionStats = async (req, res) => {
+  const getActionStats = async (req, res) => {
     try {
       // Total count of actions
-      const totalActions = await action.countDocuments({});
+      const totalActions = await reqActions.countDocuments({});
   
       // Count of actions grouped by status
-      const statusCounts = await action.aggregate([
+      const statusCounts = await reqActions.aggregate([
         {
           $group: {
             _id: "$action_status",
@@ -101,16 +101,15 @@ const getActionStats = async (req, res) => {
         }
       ]);
   
-      // Format the results
-      const formattedStatusCounts = statusCounts.map(stat => ({
-        status: stat._id,
-        count: stat.count
-      }));
+      // Separate arrays for labels and counts
+      const labels = statusCounts.map(stat => stat._id);
+      const counts = statusCounts.map(stat => stat.count);
   
       res.status(200).json({
         status: 'success',
         totalActions: totalActions,
-        actionCountsByStatus: formattedStatusCounts
+        labels: labels,
+        counts: counts
       });
     } catch (error) {
       res.status(500).json({
@@ -119,6 +118,9 @@ const getActionStats = async (req, res) => {
       });
     }
   };
+  
+  module.exports = { getActionStats };
+  
   
 module.exports ={
     createAction,

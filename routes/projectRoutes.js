@@ -21,8 +21,8 @@ router.get("/getissuebyid/:id",keyissueController.getIssueById);
 router.post("/updateissue",keyissueController.updateIssueById);
 router.post("/deleteissue",keyissueController.deleteIssueid);
 router.get("/countkeyissue",keyissueController.countKeyIssues);
-router.post("/createissue",keyissueController.createIssue);
-router.get("/getcountmonth",keyissueController.getIssuesCountPerMonth);
+// router.post("/createissue",keyissueController.createIssue);
+router.get("/getcountmonth/:year",keyissueController.getcountmonth);
 
 
 router.post("/createAction",actionsController.createAction);
@@ -32,6 +32,7 @@ router.post("/updateactionbyid",actionsController.updateActionById);
 router.post("/deleteactionbyid",actionsController.deleteActionid);
 router.get("/countaction",actionsController.countAction);
 router.get("/actionstatus",actionsController.getActionStats);
+router.get("/getActionStats",keyissueController.getcountmonth);
 
 
 
