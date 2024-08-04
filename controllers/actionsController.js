@@ -1,5 +1,6 @@
 const action = require("../modal/actions");
 const mongoose = require('mongoose');
+const keyIssues = require("../modal/keyissues");
 
 const createAction = async(req,res) =>{
     try {  
@@ -83,43 +84,104 @@ const deleteActionid = async(req,res) =>{
     }
 }
 
-  const getActionStats = async (req, res) => {
-    try {
-      // Total count of actions
-      const totalActions = await reqActions.countDocuments({});
-  
-      // Count of actions grouped by status
-      const statusCounts = await reqActions.aggregate([
+const getActionStats = async (req, res) => {
+  try {
+      // const year = parseInt(req.params.year);
+      const year = parseInt(req.params.year, 10);
+      if (isNaN(year)) {
+          return res.status(400).json({
+              status: 'error',
+              message: 'Invalid year parameter'
+          });
+      }
+
+      const startOfYear = new Date(year, 0, 1);
+        const endOfYear = new Date(year + 1, 0, 1);
+
+        // Total count of actions for the given year
+        const totalActions = await keyIssues.countDocuments({
+          issueRaiseddate: {
+                $gte: startOfYear,
+                $lt: endOfYear
+            }
+        });
+
+
+      // Count of actions grouped by status for the given year
+      const statusCounts = await keyIssues.aggregate([
         {
-          $group: {
-            _id: "$action_status",
-            count: { $sum: 1 }
-          }
+          $match: {
+            issueRaiseddate: {
+              $gte: new Date(`${year}-01-01`),
+              $lt: new Date(`${year + 1}-01-01`),
+            },
+          },
         },
-        {
-          $sort: { _id: 1 } // Sort by status if needed
-        }
+          {
+              $group: {
+                  _id: "$issue_Status",
+                  count: { $sum: 1 }
+              }
+          },
+          {
+              $sort: { _id: 1 } // Sort by status if needed
+          }
       ]);
-  
+      console.log(statusCounts);
       // Separate arrays for labels and counts
       const labels = statusCounts.map(stat => stat._id);
       const counts = statusCounts.map(stat => stat.count);
-  
+
       res.status(200).json({
-        status: 'success',
-        totalActions: totalActions,
-        labels: labels,
-        counts: counts
+          status: 'success',
+          totalActions: totalActions,
+          labels: labels,
+          counts: counts
       });
-    } catch (error) {
+  } catch (error) {
       res.status(500).json({
-        status: 'error',
-        message: error.message
+          status: 'error',
+          message: error.message
       });
-    }
-  };
-  
-  module.exports = { getActionStats };
+  }
+};
+
+// const getActionStats = async (req, res) => {
+//   try {
+//     // Total count of actions
+//     const totalActions = await action.countDocuments({});
+
+//     // Count of actions grouped by status
+//     const statusCounts = await action.aggregate([
+//       {
+//         $group: {
+//           _id: "$issue_Status",
+//           count: { $sum: 1 }
+//         }
+//       },
+//       {
+//         $sort: { _id: 1 } // Sort by status if needed
+//       }
+//     ]);
+
+//     // Separate arrays for labels and counts
+//     const labels = statusCounts.map(stat => stat._id);
+//     const counts = statusCounts.map(stat => stat.count);
+
+//     res.status(200).json({
+//       status: 'success',
+//       totalActions: totalActions,
+//       labels: labels,
+//       counts: counts
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       status: 'error',
+//       message: error.message
+//     });
+//   }
+// };
+
   
   
 module.exports ={
