@@ -21,6 +21,25 @@ const getAllIssues = async(req,res) => {
             res.status(500).json({ status: 'error', message: error.message });
         }
 }
+const getIssueId = async(req,res) => {
+  try {
+  // Fetch only the project_id field from the Project collection
+  const projects = await keyIssues.find({}, 'issue_id');
+  
+  // Extract project_id values
+  const issueIds = projects.map(project => project.issue_id);
+
+  res.status(200).json({
+      status: 'success',
+      data: issueIds
+  });
+} catch (error) {
+  res.status(500).json({
+      status: 'error',
+      message: error.message
+  });
+}
+}
 const countKeyIssues = async (req, res) => {
     try {
       const count = await keyIssues.countDocuments({});
@@ -123,6 +142,7 @@ const getcountmonth= async (req, res) => {
 module.exports = {
     createIssue,
     getAllIssues,
+    getIssueId,
     getIssueById,
     updateIssueById,
     deleteIssueid,

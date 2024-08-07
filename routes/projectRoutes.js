@@ -10,6 +10,7 @@ router.post("/login",loginController.login);
 
 router.post("/project",projectController.createProject);
 router.get("/getallprojects",projectController.getAllProjects);
+router.get("/allprojectids",projectController.getProjectsId);
 router.get("/projectbyid/:id",projectController.getProjectsById);
 router.post("/updateproj",projectController.updatebyid);
 router.post("/deleteproj",projectController.deleteprojid);
@@ -17,6 +18,7 @@ router.get("/countproj",projectController.countProjects);
 
 router.post("/createissue",keyissueController.createIssue);
 router.get("/getallissue",keyissueController.getAllIssues);
+router.get("/allissueids",keyissueController.getIssueId);
 router.get("/getissuebyid/:id",keyissueController.getIssueById);
 router.post("/updateissue",keyissueController.updateIssueById);
 router.post("/deleteissue",keyissueController.deleteIssueid);

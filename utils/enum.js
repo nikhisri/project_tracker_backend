@@ -1,0 +1,19 @@
+const PROJECT_STATUS = Object.freeze({
+   NEW:"NEW",
+   INPROGRESS:"IN-PROGRESS",
+   COMPLETED:"COMPLETED",
+   LATE:"LATE"
+});
+
+const ISSUE_ACTION_STATUS = Object.freeze({
+  OPENED:"OPENED",
+  INPROGRESS:"IN-PROGRESS",
+  CLOSED:"CLOSED"
+});
+
+
+
+module.exports = {
+    PROJECT_STATUS,
+    ISSUE_ACTION_STATUS
+}

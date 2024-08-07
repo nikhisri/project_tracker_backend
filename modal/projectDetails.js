@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const PROJECT_STATUS_ENUM = ["Opened", "In-Progress", "Completed","Late"];
 
 //step 2
 const projectSchema = new mongoose.Schema({
@@ -58,6 +59,7 @@ const projectSchema = new mongoose.Schema({
     },
     project_Status:{
         type:String,
+        enum:PROJECT_STATUS_ENUM,
         required:true
     },
     owner_Id:{

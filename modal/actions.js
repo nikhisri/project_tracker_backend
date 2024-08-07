@@ -1,21 +1,26 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
+const ACTION_STATUS_ENUM = ["Opened", "In-Progress", "Closed"];
 //step 2
 const reqActionSchema = new mongoose.Schema({
-    project_id:{
-        type:String,
-        required:true,  
-    },
+    
 
     action_id:{
         type:String,
         required:true,
         unique:true
     },
-
-    issue_id:{
+    project_id:{
         type:String,
-        required:true, 
+        // ref: 'Project_det', 
+         required: true 
+    },
+    
+    issue_id: { 
+       
+        type:String,
+        // ref: 'Issue',
+        required: true 
     },
    
     action_desc:{
@@ -30,6 +35,7 @@ const reqActionSchema = new mongoose.Schema({
 
     action_status:{
         type:String,
+        enum:ACTION_STATUS_ENUM,
         required:true
     },
 

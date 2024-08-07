@@ -23,6 +23,25 @@ const getAllProjects = async(req,res) => {
             res.status(500).json({ status: 'error', message: error.message });
         }
 }
+const getProjectsId = async(req,res) => {
+            try {
+            // Fetch only the project_id field from the Project collection
+            const projects = await Project_det.find({}, 'project_id');
+            
+            // Extract project_id values
+            const projectIds = projects.map(project => project.project_id);
+    
+            res.status(200).json({
+                status: 'success',
+                data: projectIds
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: 'error',
+                message: error.message
+            });
+        }
+}
 const countProjects = async (req, res) => {
     try {
       const procount = await Project_det.countDocuments({});
@@ -96,8 +115,9 @@ module.exports = {
     createProject,
     getAllProjects,
     getProjectsById,
+    getProjectsId,
     updatebyid,
     deleteprojid,
     countProjects
     
-};
+}

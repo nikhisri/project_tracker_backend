@@ -1,12 +1,22 @@
 const mongoose = require("mongoose");
- 
+const Schema = mongoose.Schema;
+const ISSUE_STATUS_ENUM = ["Opened", "In-Progress", "Closed"];
 //step 2
 const keyIssueSchema = new mongoose.Schema({
-    project_id:{
+   
+    issue_id:{
         type:String,
         required:true,
         unique:true
     },
+ 
+    project_id: {
+        //  type: mongoose.Schema.Types.ObjectId,
+        type:String,
+        //  ref: 'project', 
+         required: true
+         },
+
     project_name:{
         type:String,
         required:true                                                                                                                                                                                                                                           
@@ -29,7 +39,8 @@ const keyIssueSchema = new mongoose.Schema({
  
     owner_Id:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     action_owner:{  
         type:String,
@@ -40,13 +51,10 @@ const keyIssueSchema = new mongoose.Schema({
         type:String
     },
      
-    issue_id:{
-        type:String,
-        required:true
-    },
- 
+   
     issue_Status:{
         type:String,
+        enum: ISSUE_STATUS_ENUM,
         required:true
     },
    
@@ -59,5 +67,5 @@ const keyIssueSchema = new mongoose.Schema({
 timestamps: true // Enable timestamps
 }
 );
-const keyissue = mongoose.model('Key', keyIssueSchema);
+const keyissue = mongoose.model('KeyIssue', keyIssueSchema);
 module.exports = keyissue;
